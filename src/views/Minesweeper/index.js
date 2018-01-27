@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './styles.css'
-import Item from '../Item'
+import Cell from '../Cell'
 
 class Minesweeper extends Component {
   render() {
@@ -10,14 +10,24 @@ class Minesweeper extends Component {
         {this.props.minefield.map((column, x) => (
           <div className="column" key={'column_' + x}>
             {Array.from(column).map((item, y) => (
-              <Item key={'item_' + y}
+              <Cell key={'item_' + y}
                 type={item}
-                itemState={this.props.statemap[x][y]} />
+                itemState={this.props.statemap[x][y]}
+                onItemClick={this.openTheCell(x, y)} />
             ))}
           </div>
         ))}
       </div>
     )
+  }
+
+  /**
+   * Handles item click */
+  openTheCell = (x, y) => (event) => {
+    this.props.dispatch({
+      type: 'OPEN_CELL',
+      payload: { x, y }
+    })
   }
 }
 

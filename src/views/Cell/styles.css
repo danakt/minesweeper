@@ -3,8 +3,7 @@
   height: 40px;
   line-height: 40px;
   text-align: center;
-  cursor: pointer;
-  background-color: #eee;
+  background-color: #e5e5e5;
   border: 1px solid #dedede;
   transition: .15s ease-out;
   transition-property: visibility, oapcity, border, background;
@@ -12,17 +11,25 @@
 
 /* Closed state */
 .item--closed {
-  border-left: 2px solid #fff;
-  border-top: 2px solid #fff;
+  cursor: pointer;
+  background-color: #eee;
+  border-left: 2px solid #f5f5f5;
+  border-top: 2px solid #f5f5f5;
   border-right: 2px solid #dedede;
   border-bottom: 2px solid #dedede;
 }
 
 .item--closed:hover {
-  background-color: #dfdfdf;
+  background-color: #f5f5f5;
 }
 
 .item--closed .item__content {
   visibility: hidden;
   opacity: 1;
+}
+
+/* Exploded mine */
+.item--exploded {
+  background-color: rgb(255, 142, 142);
+  border: 0;
 }

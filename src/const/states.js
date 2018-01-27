@@ -1,5 +1,5 @@
 /**
- * States of items
+ * States of cells
  */
 export const CLOSED = 0
 export const OPENED = 1

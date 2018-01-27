@@ -4,13 +4,13 @@ import './styles.css'
 import { EMPTY, MINE } from '../../const/cells'
 import { CLOSED, OPENED, SUSPICIOUS, EXPLODED } from '../../const/states'
 
-export default class Item extends Component {
+export default class Cell extends Component {
   render() {
     const content = this.getItemContentByType(this.props.type)
     const classList = classNames('item', this.getClassNameByState(this.props.itemState))
 
     return (
-      <div className={classList}>
+      <div className={classList} onClick={this.props.onItemClick}>
         <span className="item__content">
           {content}
         </span>
