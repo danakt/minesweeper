@@ -7,10 +7,13 @@
   border: 1px solid #dedede;
 }
 
+/* Closed state */
 .item--closed {
-  border-left: 3px solid #fff;
-  border-top: 3px solid #fff;
-  border-right: 3px solid #dedede;
-  border-bottom: 3px solid #dedede;
-
+  border-left: 2px solid #fff;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #dedede;
+  border-bottom: 2px solid #dedede;
+}
+.item--closed .item__content {
+  visibility: hidden;
 }

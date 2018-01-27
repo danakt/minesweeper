@@ -7,10 +7,12 @@ class Minesweeper extends Component {
   render() {
     return (
       <div className="minefield">
-        {this.props.minefield.map((column, i) => (
-          <div className="column" key={'column_' + i}>
-            {Array.from(column).map((item, j) => (
-              <Item type={item} key={'item_' + j} />
+        {this.props.minefield.map((column, x) => (
+          <div className="column" key={'column_' + x}>
+            {Array.from(column).map((item, y) => (
+              <Item key={'item_' + y}
+                type={item}
+                itemState={this.props.statemap[x][y]} />
             ))}
           </div>
         ))}
@@ -20,7 +22,8 @@ class Minesweeper extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  minefield: state.minefield
+  minefield: state.minefield,
+  statemap: state.statemap,
 })
 
 export default connect(mapStateToProps)(Minesweeper)

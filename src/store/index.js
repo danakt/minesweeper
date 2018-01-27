@@ -15,7 +15,7 @@ const initialState = {
   minefield: createMineField(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_MINES),
   // The map of states of every item of minefield
   // Empty 2d array on start
-  mapstate: Array(DEFAULT_WIDTH).map(column => new Uint8Array()),
+  statemap: Array(DEFAULT_WIDTH).fill(undefined).map(column => new Uint8Array(DEFAULT_HEIGHT)),
   // Flag of playing start
   isPlaying: false,
 }
@@ -28,7 +28,7 @@ export default createStore((state = initialState, action) => {
       return {
         ...state,
         minefield: createMineField(state.width, state.height, state.mines),
-        mapstate: Array(state.width).fill(undefined).map(column => new Uint8Array(state.height)),
+        statemap: Array(state.width).fill(undefined).map(column => new Uint8Array(state.height)),
         isPlaying: false,
       }
     }
