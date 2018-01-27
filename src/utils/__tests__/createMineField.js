@@ -1,24 +1,24 @@
 import createMineField from '../createMineField'
 import { MINE, EMPTY } from '../../const/cells'
 
-describe('Generation of mine field', () => {
-  test('generation of mine field', () => {
-    const width = 9
-    const height = 9
-    const mines = 10
+/**
+ * @todo Make testing of calculating of cells around mines
+ */
+test('Generation of minefield', () => {
+  const width = 9
+  const height = 9
+  const mines = 10
 
-    let minesCounter = 0
-    const mineFileld = createMineField(width, height, mines)
-    console.log(mineFileld)
+  let minesCounter = 0
+  const mineFileld = createMineField(width, height, mines)
 
-    for (let x = 0; x < mineFileld.length; x++) {
-      for (let y = 0; y < mineFileld[x].length; y++) {
-        if (mineFileld[x][y] === MINE) {
-          minesCounter++
-        }
+  for (let x = 0; x < mineFileld.length; x++) {
+    for (let y = 0; y < mineFileld[x].length; y++) {
+      if (mineFileld[x][y] === MINE) {
+        minesCounter++
       }
     }
+  }
 
-    expect(minesCounter).toEqual(mines)
-  })
+  expect(minesCounter).toEqual(mines)
 })
