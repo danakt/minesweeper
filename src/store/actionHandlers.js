@@ -1,5 +1,6 @@
 import createMineField from '../utils/createMineField'
 import updateMatrixValue from '../utils/updateMatrixValue'
+import showEmptyCellsAround from '../utils/showEmptyCellsAround'
 import { OPENED, CLOSED, FLAGGED, EXPLODED } from '../const/states'
 import { MINE, EMPTY } from '../const/cells'
 import { WAITING, PLAYING, WIN, LOSS } from '../const/gameStates'
@@ -13,6 +14,32 @@ export function init(state) {
     minefield: createMineField(state.width, state.height, state.mines),
     statemap: Array(state.width).fill(undefined).map(column => new Uint8Array(state.height)),
     gameState: WAITING,
+  }
+}
+
+/**
+ * Makes map with empty cell by specified coordinates
+ * That needs for first move
+ */
+export function makeMapByPoint(state, action) {
+  const { x, y } = action.payload
+
+  let minefield
+  // Making finite loop to prevent unexpected behavior
+  for (let i = 0; i <= 1e6; i++) {
+    if (i === 1e6) {
+      throw new Error('Error generating map')
+    }
+
+    minefield = createMineField(state.width, state.height, state.mines)
+    if (minefield[x][y] === EMPTY) {
+      break
+    }
+  }
+
+  return {
+    ...state,
+    minefield
   }
 }
 
@@ -35,10 +62,16 @@ export function openCell(state, action) {
 
   // Switching cell type
   switch (state.minefield[x][y]) {
-    // Opens empty cell
-    // case EMPTY: {
-      //
-    // }
+    // Open empty cells
+    case EMPTY: {
+      const statemap = showEmptyCellsAround(x, y, state.minefield, state.statemap)
+
+      return {
+        ...state,
+        statemap,
+        gameState: PLAYING,
+      }
+    }
 
     // If is mine, showing
     case MINE: {
@@ -102,5 +135,30 @@ export function setMines(state, action) {
   return {
     ...state,
     mines: action.payload.mines,
+  }
+}
+
+/**
+ * Toggle flag
+ */
+export function toggleFlag(state, action) {
+  if (state.gameState !== WAITING && state.gameState !== PLAYING) {
+    return state
+  }
+
+  const { x, y } = action.payload
+  const currentCellState = state.statemap[x][y]
+
+  if (currentCellState !== CLOSED && currentCellState !== FLAGGED) {
+    return state
+  }
+
+  const nextCellState = currentCellState === CLOSED
+    ? FLAGGED
+    : CLOSED
+
+  return {
+    ...state,
+    statemap: updateMatrixValue(nextCellState, x, y, state.statemap)
   }
 }
