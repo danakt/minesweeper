@@ -7,5 +7,4 @@
 
 .column {
   flex-direction: column;
-  user-select: none;
 }

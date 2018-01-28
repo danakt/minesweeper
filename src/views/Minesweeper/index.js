@@ -52,10 +52,4 @@ class Minesweeper extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  minefield: state.minefield,
-  statemap: state.statemap,
-  gameState: state.gameState,
-})
-
-export default connect(mapStateToProps)(Minesweeper)
+export default connect()(Minesweeper)

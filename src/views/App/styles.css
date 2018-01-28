@@ -1,7 +1,9 @@
 .app {
   padding: 10px;
+  text-align: center;
+  user-select: none;
 }
 
 .minefield-wrapper {
-  text-align: center;
+  display: inline-block;
 }

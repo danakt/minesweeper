@@ -5,16 +5,8 @@
   text-align: center;
   background-color: #e5e5e5;
   border: 1px solid #dedede;
-  transition: .15s ease-out;
-  transition-property: visibility, oapcity, border, background;
   position: relative;
   /* font-weight: bold; */
-}
-
-.item .item__content {
-  transform: scale(1);
-  transition: .15s ease-out;
-  transition-property: transform, visibility, opacity;
 }
 
 /* Closed state */
