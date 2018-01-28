@@ -25,9 +25,10 @@ export function makeMapByPoint(state, action) {
   const { x, y } = action.payload
 
   let minefield
+  const LOOP_LIMIT = 1e4
   // Making finite loop to prevent unexpected behavior
-  for (let i = 0; i <= 1e6; i++) {
-    if (i === 1e6) {
+  for (let i = 0; i <= LOOP_LIMIT; i++) {
+    if (i === LOOP_LIMIT) {
       throw new Error('Error generating map')
     }
 
