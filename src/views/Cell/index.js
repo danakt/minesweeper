@@ -17,7 +17,8 @@ export default class Cell extends Component {
     const content = this.getItemContentByType(this.props.type)
     const classList = classNames(
       'item',
-      this.getClassNameByState(this.props.itemState)
+      this.getClassNameByState(this.props.itemState),
+      this.getClassNameByType(this.props.type)
     )
 
     return (
@@ -69,5 +70,17 @@ export default class Cell extends Component {
       // Fallback is CLOSED
       default: return prefix + 'closed'
     }
+  }
+
+  /**
+   * Returns class name by cell type
+   * @return {string}
+   */
+  getClassNameByType = (type) => {
+    if (type >= 1 && type <= 8) {
+      return 'item--' + type
+    }
+
+    return ''
   }
 }

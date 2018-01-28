@@ -8,6 +8,7 @@
   transition: .15s ease-out;
   transition-property: visibility, oapcity, border, background;
   position: relative;
+  /* font-weight: bold; */
 }
 
 .item .item__content {
@@ -50,4 +51,30 @@
 .item--exploded {
   background-color: rgb(255, 142, 142);
   border: 0;
+}
+
+/* Numbers */
+.item--1 {
+  color: #1904ff;
+}
+.item--2 {
+  color: #038000;
+}
+.item--3 {
+  color: #ff0000;
+}
+.item--4 {
+  color: #070180;
+}
+.item--5 {
+  color: #7f0000;
+}
+.item--6 {
+  color: #058080;
+}
+.item--7 {
+  color: #000000;
+}
+.item--8 {
+  color: #808080;
 }
