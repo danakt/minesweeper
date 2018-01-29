@@ -2,16 +2,24 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './styles.css'
 import { WAITING, WIN, LOSS, PLAYING } from '../../const/gameStates'
+import declOfNum from '../../utils/declOfNum'
+import Timer from '../Timer'
 
 class Scoreboard extends Component {
   render() {
+    const minesLeft = this.props.mines - this.props.flags
+
     return (
       <div className="scoreboard">
-        <div className="mines">0</div>
+        <div className="mines">{minesLeft} {declOfNum(minesLeft, ['бомба', 'бомбы', 'бомб'])}</div>
+
         <div className="status" onClick={this.startGame}>
           {this.getEmojiByGameState(this.props.gameState, this.props.isHold)}
         </div>
-        <div className="time">0</div>
+
+        <div className="time">
+          <Timer gameState={this.props.gameState} />
+        </div>
       </div>
     )
   }

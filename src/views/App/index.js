@@ -6,13 +6,15 @@ import Scoreboard from '../Scoreboard'
 
 class App extends Component {
   render() {
-    const { minefield, statemap, gameState } = this.props
+    const { minefield, statemap, gameState, mines, flags } = this.props
 
     return (
       <div className="app">
         <div className="minefield-wrapper">
           <Scoreboard
-            gameState={gameState} />
+            gameState={gameState}
+            mines={mines}
+            flags={flags} />
 
           <Minesweeper
             minefield={minefield}
@@ -28,6 +30,8 @@ const mapStateToProps = (state) => ({
   minefield: state.minefield,
   statemap: state.statemap,
   gameState: state.gameState,
+  mines: state.mines,
+  flags: state.flags,
 })
 
 export default connect(mapStateToProps)(App)
