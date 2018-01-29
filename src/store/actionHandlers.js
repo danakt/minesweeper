@@ -62,49 +62,67 @@ export function openCell(state, action) {
     return state
   }
 
-  // Switching cell type
-  switch (state.minefield[x][y]) {
-    // Open empty cells
-    case EMPTY: {
-      const statemap = showEmptyCellsAround(x, y, state.minefield, state.statemap)
+  const cellType = state.minefield[x][y]
 
-      return {
-        ...state,
-        statemap,
-        gameState: PLAYING,
-      }
-    }
-
-    // If is mine, showing
-    case MINE: {
-      // Open all mines
-      const statemapWithOpenedMines = state.statemap.map((column, x) => {
-        return column.map((item, y) => {
-          return state.minefield[x][y] === MINE
-            ? OPENED
-            : item
-        })
+  // If is mine, showing all mines
+  if (cellType === MINE) {
+    const statemapWithOpenedMines = state.statemap.map((column, x) => {
+      return column.map((item, y) => {
+        return state.minefield[x][y] === MINE
+          ? OPENED
+          : item
       })
+    })
 
-      // Mark exploded mine
-      const newStatemap = updateMatrixValue(EXPLODED, x, y, statemapWithOpenedMines)
+    // Mark exploded mine
+    const newStatemap = updateMatrixValue(EXPLODED, x, y, statemapWithOpenedMines)
 
-      return {
-        ...state,
-        statemap: newStatemap,
-        gameState: LOSS,
-      }
+    return {
+      ...state,
+      statemap: newStatemap,
+      gameState: LOSS,
     }
+  }
 
+  // Just open the cell
+  const statemap = cellType === EMPTY
+    // Opening alll empty space
+    ? showEmptyCellsAround(x, y, state.minefield, state.statemap)
     // If is number, just open the cell
-    default: {
-      const newStatemap = updateMatrixValue(OPENED, x, y, state.statemap)
-      return {
-        ...state,
-        statemap: newStatemap,
-        gameState: PLAYING,
-      }
+    : updateMatrixValue(OPENED, x, y, state.statemap)
+
+
+  // Counting closed cells
+  const closedNumber = statemap.reduce((acc, column, x) => {
+    return acc + column.reduce((acc, item, y) => {
+      return item !== OPENED
+        ? acc + 1
+        : acc
+    }, 0)
+  }, 0)
+
+  // Just open the cell
+  if (closedNumber !== state.mines) {
+    return {
+      ...state,
+      statemap,
+      gameState: PLAYING,
     }
+  }
+
+  // If game is winned
+  const winStatemap = statemap.map((column, x) => {
+    return column.map((item, y) => {
+      return state.minefield[x][y] === MINE
+        ? FLAGGED
+        : OPENED
+    })
+  })
+
+  return {
+    ...state,
+    statemap: winStatemap,
+    gameState: WIN,
   }
 }
 
