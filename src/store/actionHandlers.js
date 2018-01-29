@@ -1,7 +1,7 @@
 import createMineField from '../utils/createMineField'
 import updateMatrixValue from '../utils/updateMatrixValue'
 import showEmptyCellsAround from '../utils/showEmptyCellsAround'
-import { OPENED, CLOSED, FLAGGED, EXPLODED } from '../const/states'
+import { OPENED, CLOSED, FLAGGED, EXPLODED, SUSPICIOUS } from '../const/states'
 import { MINE, EMPTY } from '../const/cells'
 import { WAITING, PLAYING, WIN, LOSS } from '../const/gameStates'
 
@@ -14,6 +14,7 @@ export function init(state) {
     minefield: createMineField(state.width, state.height, state.mines),
     statemap: Array(state.width).fill(undefined).map(column => new Uint8Array(state.height)),
     gameState: WAITING,
+    flags: 0,
   }
 }
 
@@ -148,18 +149,45 @@ export function toggleFlag(state, action) {
   }
 
   const { x, y } = action.payload
-  const currentCellState = state.statemap[x][y]
+  const curCellState = state.statemap[x][y]
 
-  if (currentCellState !== CLOSED && currentCellState !== FLAGGED) {
+  if (curCellState !== CLOSED && curCellState !== FLAGGED && curCellState !== SUSPICIOUS) {
     return state
   }
 
-  const nextCellState = currentCellState === CLOSED
-    ? FLAGGED
-    : CLOSED
+  let currentFlags = state.flags
+
+  // Next cell state
+  let nextCellState
+  switch (curCellState) {
+    case CLOSED: {
+      currentFlags++
+      nextCellState = FLAGGED
+      break
+    }
+
+    case FLAGGED: {
+      currentFlags--
+      nextCellState = SUSPICIOUS
+      break
+    }
+
+    case SUSPICIOUS: {
+      nextCellState = CLOSED
+      break
+    }
+
+    default: {
+      throw new Error('Unexpected state')
+    }
+  }
+
+  const statemap = updateMatrixValue(nextCellState, x, y, state.statemap)
 
   return {
     ...state,
-    statemap: updateMatrixValue(nextCellState, x, y, state.statemap)
+    statemap,
+    flags: currentFlags,
   }
 }
+

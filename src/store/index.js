@@ -15,6 +15,8 @@ const initialState = actionHandlers.init({
   statemap: undefined,
   // State of the game
   gameState: WAITING,
+  // Counter of flags in the minefield
+  flags: 0,
 })
 
 
