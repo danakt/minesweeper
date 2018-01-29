@@ -63,9 +63,9 @@ export default class Cell extends Component {
 
     switch (itemState) {
       case OPENED: return prefix + 'opened'
-      case SUSPICIOUS: return prefix + 'suspicious'
       case EXPLODED: return prefix + 'exploded'
       case CLOSED: return prefix + 'closed'
+      case SUSPICIOUS: return prefix + 'closed ' + prefix + 'suspicious'
       case FLAGGED: return prefix + 'closed ' + prefix + 'flagged'
       // Fallback is CLOSED
       default: return prefix + 'closed'

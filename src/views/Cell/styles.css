@@ -39,6 +39,16 @@
   height: 100%;
 }
 
+/** Suspicious cell */
+.item--suspicious::before {
+  content: '？';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Exploded mine */
 .item--exploded {
   background-color: rgb(255, 142, 142);
