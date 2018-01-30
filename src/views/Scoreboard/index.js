@@ -11,7 +11,7 @@ class Scoreboard extends Component {
 
     return (
       <div className="scoreboard">
-        <div className="mines">{minesLeft} {declOfNum(minesLeft, ['бомба', 'бомбы', 'бомб'])}</div>
+        <div className="mines">{minesLeft} {/* declOfNum(minesLeft, ['бомба', 'бомбы', 'бомб']) */}</div>
 
         <div className="status" onClick={this.startGame}>
           {this.getEmojiByGameState(this.props.gameState, this.props.isHold)}
