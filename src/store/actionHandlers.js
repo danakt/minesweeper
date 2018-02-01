@@ -123,6 +123,7 @@ export function openCell(state, action) {
     ...state,
     statemap: winStatemap,
     gameState: WIN,
+    flags: state.mines,
   }
 }
 
