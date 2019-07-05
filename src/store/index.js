@@ -1,7 +1,7 @@
-import { createStore } from 'redux'
-import { handleActions } from 'redux-actions'
-import * as actionHandlers from './actionHandlers'
-import { WAITING } from '../const/gameStates'
+import { createStore } from 'redux';
+import { handleActions } from 'redux-actions';
+import * as actionHandlers from './actionHandlers';
+import { WAITING } from '../const/gameStates';
 
 /** Initial state */
 const initialState = actionHandlers.init({
@@ -16,19 +16,21 @@ const initialState = actionHandlers.init({
   // State of the game
   gameState: WAITING,
   // Counter of flags in the minefield
-  flags: 0,
-})
-
+  flags: 0
+});
 
 /** The store of application */
 export default createStore((state = initialState, action) => {
-  return handleActions({
-    'INIT': actionHandlers.init,
-    'MAKE_MAP_BY_POINT': actionHandlers.makeMapByPoint,
-    'OPEN_CELL': actionHandlers.openCell,
-    'START': actionHandlers.start,
-    'RESIZE': actionHandlers.resize,
-    'SET_MINES': actionHandlers.setMines,
-    'TOGGLE_FLAG': actionHandlers.toggleFlag,
-  }, state)(state, action)
-}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  return handleActions(
+    {
+      INIT: actionHandlers.init,
+      MAKE_MAP_BY_POINT: actionHandlers.makeMapByPoint,
+      OPEN_CELL: actionHandlers.openCell,
+      START: actionHandlers.start,
+      RESIZE: actionHandlers.resize,
+      SET_MINES: actionHandlers.setMines,
+      TOGGLE_FLAG: actionHandlers.toggleFlag
+    },
+    state
+  )(state, action);
+}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

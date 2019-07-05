@@ -8,11 +8,11 @@
  * @return {any[][]} The new matrix
  */
 export default function updateMatrixValue(value, x, y, matrix) {
-  const columnCopy = matrix[x].slice()
-  columnCopy[y] = value
+  const columnCopy = matrix[x].slice();
+  columnCopy[y] = value;
 
-  const matrixCopy = matrix.slice()
-  matrixCopy[x] = columnCopy
+  const matrixCopy = matrix.slice();
+  matrixCopy[x] = columnCopy;
 
-  return matrixCopy
+  return matrixCopy;
 }

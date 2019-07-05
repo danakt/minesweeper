@@ -1,14 +1,21 @@
-import { EMPTY } from '../const/cells'
-import { OPENED, FLAGGED } from '../const/states'
-import pipe from '../utils/pipe'
-import updateMatrixValue from './updateMatrixValue'
+import { EMPTY } from '../const/cells';
+import { OPENED, FLAGGED } from '../const/states';
+import pipe from '../utils/pipe';
+import updateMatrixValue from './updateMatrixValue';
 
 /**
  * The offsets of cells
  */
 const offsets = [
-  [-1, 0], [-1, -1], [-1, 1], [1, -1], [1, 0], [1, 1], [0, 1], [0, -1],
-]
+  [-1, 0],
+  [-1, -1],
+  [-1, 1],
+  [1, -1],
+  [1, 0],
+  [1, 1],
+  [0, 1],
+  [0, -1]
+];
 
 /**
  * Shows empty cells around the specified element
@@ -20,26 +27,28 @@ const offsets = [
  */
 export default function showEmptyCellsAround(x, y, minefield, statemap) {
   if (statemap[x] === undefined || statemap[x][y] === undefined) {
-    return statemap
+    return statemap;
   }
 
   if (statemap[x][y] === OPENED) {
-    return statemap
+    return statemap;
   }
 
   // Open the cell
-  const statemapWithOpenedCell = statemap[x][y] !== FLAGGED
-    ? updateMatrixValue(OPENED, x, y, statemap)
-    : statemap
+  const statemapWithOpenedCell =
+    statemap[x][y] !== FLAGGED
+      ? updateMatrixValue(OPENED, x, y, statemap)
+      : statemap;
 
   if (minefield[x][y] !== EMPTY) {
-    return statemapWithOpenedCell
+    return statemapWithOpenedCell;
   }
 
   const functionsList = offsets.map(([offsetX, offsetY]) => {
-    return map => showEmptyCellsAround(x + offsetX, y + offsetY, minefield, map)
-  })
+    return map =>
+      showEmptyCellsAround(x + offsetX, y + offsetY, minefield, map);
+  });
 
-  const updatedStateMap = pipe(...functionsList)(statemapWithOpenedCell)
-  return updatedStateMap
+  const updatedStateMap = pipe(...functionsList)(statemapWithOpenedCell);
+  return updatedStateMap;
 }

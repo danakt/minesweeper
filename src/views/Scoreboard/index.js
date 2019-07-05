@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import './styles.css'
-import { WAITING, WIN, LOSS, PLAYING } from '../../const/gameStates'
-import declOfNum from '../../utils/declOfNum'
-import Timer from '../Timer'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './styles.css';
+import { WIN, LOSS } from '../../const/gameStates';
+import Timer from '../Timer';
 
 class Scoreboard extends Component {
   render() {
-    const minesLeft = this.props.mines - this.props.flags
+    const minesLeft = this.props.mines - this.props.flags;
 
     return (
       <div className="scoreboard">
-        <div className="mines">{minesLeft} {/* declOfNum(minesLeft, ['бомба', 'бомбы', 'бомб']) */}</div>
+        <div className="mines">
+          {minesLeft} {/* declOfNum(minesLeft, ['бомба', 'бомбы', 'бомб']) */}
+        </div>
 
         <div className="status" onClick={this.startGame}>
           {this.getEmojiByGameState(this.props.gameState, this.props.isHold)}
@@ -21,7 +22,7 @@ class Scoreboard extends Component {
           <Timer gameState={this.props.gameState} />
         </div>
       </div>
-    )
+    );
   }
 
   /**
@@ -32,15 +33,18 @@ class Scoreboard extends Component {
    */
   getEmojiByGameState = (gameState, isHold) => {
     if (isHold) {
-      return '😲'
+      return '😲';
     }
 
     switch (gameState) {
-      case WIN: return '😎'
-      case LOSS: return '😵'
-      default: return '🙂' // WAITING and PLAYING
+      case WIN:
+        return '😎';
+      case LOSS:
+        return '😵';
+      default:
+        return '🙂'; // WAITING and PLAYING
     }
-  }
+  };
 
   /**
    * Starts/restarts the game
@@ -48,8 +52,8 @@ class Scoreboard extends Component {
   startGame = () => {
     this.props.dispatch({
       type: 'INIT'
-    })
-  }
+    });
+  };
 }
 
-export default connect()(Scoreboard)
+export default connect()(Scoreboard);
