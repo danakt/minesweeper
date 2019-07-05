@@ -25,13 +25,9 @@
     "classnames": "^2.2.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-github-btn": "^1.0.5",
     "react-redux": "^7.1.0",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1",
     "redux-actions": "^2.2.1"
-  },
-  "devDependencies": {
-    "@babel/runtime": "^7.5.0"
   }
 }
