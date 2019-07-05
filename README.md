@@ -1,3 +1,3 @@
 # React Minesweeper
 
-Just for fun
+https://danakt.com/minesweeper/
