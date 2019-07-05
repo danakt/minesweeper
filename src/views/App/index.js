@@ -1,3 +1,4 @@
+import GitHubButton from 'react-github-btn';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './styles.css';
@@ -18,6 +19,17 @@ class App extends Component {
             statemap={statemap}
             gameState={gameState}
           />
+
+          <div className="github-button">
+            <GitHubButton
+              href="https://github.com/danakt/minesweeper"
+              data-size="large"
+              aria-label="View danakt/minesweeper on GitHub"
+              target="_blank"
+            >
+              View
+            </GitHubButton>
+          </div>
         </div>
       </div>
     );

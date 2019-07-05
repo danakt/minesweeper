@@ -1,9 +1,13 @@
 .app {
-  padding: 10px;
-  text-align: center;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
-.minefield-wrapper {
-  display: inline-block;
+.github-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
